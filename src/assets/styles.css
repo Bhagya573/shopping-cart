@@ -1,0 +1,13 @@
+body {
+    background-color: #f8f9fa; /* Light gray background */
+    font-family: 'Arial', sans-serif; /* Consistent font */
+  }
+  
+  h2, h3 {
+    color: #343a40; /* Darker text for headings */
+  }
+  
+  .card {
+    border: none; /* Remove card border */
+  }
+  

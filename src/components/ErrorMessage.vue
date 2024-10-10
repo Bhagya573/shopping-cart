@@ -15,10 +15,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.error-message {
-  color: red;
-  font-size: 14px;
-}
-</style>

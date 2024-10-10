@@ -11,7 +11,6 @@
   </div>
 </template>
 
-
 <script>
 import { mapGetters } from 'vuex';
 import ProductItem from './ProductItem.vue';
@@ -38,9 +37,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.product-list {
-  margin-top: 2rem;
-}
-</style>

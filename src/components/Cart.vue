@@ -7,31 +7,29 @@
         <button @click="removeFromCart(item.id)">Remove</button>
       </li>
     </ul>
-    <h3>Total: ${{ cartTotal }}</h3>
+    <h3>Total: ${{ cartTotal?.toFixed(2) }}</h3>
+    <div class="cart-icon">
+      <i class="fas fa-shopping-cart"></i>
+      <span class="item-count" v-if="totalItemCount > 0">{{ totalItemCount }}</span>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
-  name:"CartComponent",
+  name: "CartComponent",
   computed: {
-    cartItems() {
-      return this.$store.getters['cart/cartItems'];
-    },
-    cartTotal() {
-      return this.$store.getters['cart/cartTotal'];
-    },
+    ...mapGetters('cart', ['cartItems', 'cartTotal']),
+    totalItemCount() {
+      return this.cartItems.reduce((acc, item) => acc + item.quantity, 0);
+    }
   },
   methods: {
-    removeFromCart(itemId) {
-      this.$store.dispatch('cart/removeFromCart', itemId);
-    },
+    removeFromCart(productId) {
+      this.$store.dispatch('cart/removeFromCart', productId);
+    }
   },
 };
 </script>
-
-<style scoped>
-.cart {
-  margin-top: 2rem;
-}
-</style>

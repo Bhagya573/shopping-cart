@@ -12,7 +12,6 @@
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'ProductDetail',
   computed: {
     ...mapGetters('products', ['allProducts']),
     product() {
@@ -33,9 +32,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.product-detail {
-  text-align: center;
-}
-</style>

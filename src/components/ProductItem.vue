@@ -17,21 +17,8 @@ export default {
   methods: {
     addToCart() {
       this.$emit('add-to-cart', this.product);
-      alert(`${this.product.title} has been added to your cart!`);
+      alert(`${this.product.title} added to cart!`);
     },
   },
 };
 </script>
-
-<style scoped>
-.product-item {
-  transition: transform 0.2s;
-}
-.product-item:hover {
-  transform: scale(1.03);
-}
-.card-img-top {
-  height: 150px;
-  object-fit: cover;
-}
-</style>

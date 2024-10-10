@@ -1,8 +1,13 @@
-const state = { items: [] };
+const state = {
+  items: []
+};
 
 const getters = {
   cartItems: (state) => state.items,
-  cartTotal: (state) => state.items.reduce((total, item) => total + item.price * item.quantity, 0),
+  cartTotal: (state) => {
+    // Calculate the total price based on the items in the cart
+    return state.items.reduce((total, item) => total + item.price * item.quantity, 0);
+  },
 };
 
 const actions = {
@@ -31,4 +36,10 @@ const mutations = {
   },
 };
 
-export default { namespaced: true, state, getters, actions, mutations };
+export default {
+  namespaced: true,
+  state,
+  getters,
+  actions,
+  mutations,
+};

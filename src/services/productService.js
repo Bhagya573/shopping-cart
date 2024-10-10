@@ -1,11 +1,4 @@
-import axios from 'axios';
-
-const apiClient = axios.create({
-  baseURL: 'https://fakestoreapi.com',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+import apiClient from './apiInterceptor';
 
 export const getProducts = () => {
   return apiClient.get('/products');
@@ -20,3 +13,10 @@ export const addProduct = async (product) => {
   }
 };
 
+export const deleteProduct = async (productId) => {
+  try {
+    await apiClient.delete(`/products/${productId}`);
+  } catch (error) {
+    throw new Error(error.response?.data?.message || 'Error deleting product');
+  }
+};

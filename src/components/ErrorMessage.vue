@@ -1,17 +1,11 @@
 <template>
-  <div v-if="errorMessage" class="error-message">
-    {{ errorMessage }}
-  </div>
+  <div v-if="message" class="error-message">{{ message }}</div>
 </template>
 
 <script>
 export default {
   props: {
-    errorMessage: {
-      type: String,
-      required: false,
-      default: '',
-    },
+    message: { type: String, default: '' },
   },
 };
 </script>

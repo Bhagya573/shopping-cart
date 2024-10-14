@@ -16,46 +16,48 @@
         required
         class="login-input"
       />
-      <button type="submit" class="login-button">Login</button>
+      <button type="submit" class="btn btn-primary" :disabled="!isFormValid">Login</button>
+      <div>
+      <ErrorMessage v-if="genericError" :message="genericError" />
+      </div>
     </form>
-    <p v-if="error" class="error-message">{{ error }}</p>
   </div>
 </template>
-
 <script>
+import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
 import axios from 'axios';
+import ErrorMessage from './ErrorMessage.vue';
 
 export default {
-  data() {
-    return {
-      username: '',
-      password: '',
-      error: null,
-      secretKey: process.env.VUE_APP_SECRET_KEY || 'generated-secret-key',
-    };
-  },
-  methods: {
-    async login() {
+  components: { ErrorMessage },
+  setup() {
+    const username = ref('');
+    const password = ref('');
+    const genericError = ref(null);
+    const router = useRouter();
+
+    const isFormValid = computed(() => username.value && password.value);
+
+    const login = async () => {
       try {
-        const response = await axios.post('http://localhost:3001/login', {
-          username: this.username,
-          password: this.password,
-          secretKey: this.secretKey,
+        const { data } = await axios.post('http://localhost:3001/login', {
+          username: username.value.trim(),
+          password: password.value.trim(),
+          secretKey: process.env.VUE_APP_SECRET_KEY || 'generated-secret-key',
         });
-        console.log(response,"response")
-            if (response.data.token) {
-          localStorage.setItem('token', response.data.token);
-          alert(response.data.message);
-          // Navigate to home screen after successful login
-          this.$router.push('/home');
-         } else {
-          this.error = 'Login failed: Token not received.';
+        if (data.token) {
+          localStorage.setItem('token', data.token);
+          router.push('/home');
+        } else {
+          genericError.value = 'Login failed: Token not received.';
         }
       } catch (error) {
-        console.log(error,"error")
-        this.error = error.response?.data?.message || 'Login failed!';
+        genericError.value = error.response?.data?.message || 'Login failed!';
       }
-    },
+    };
+
+    return { username, password, login, isFormValid, genericError };
   },
 };
 </script>

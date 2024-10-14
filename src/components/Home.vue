@@ -10,12 +10,11 @@
 import AddProduct from './AddProduct.vue';
 
 export default {
-  name: 'HomeComponent',
   components: { AddProduct },
   methods: {
     refreshProducts() {
       this.$store.dispatch('products/fetchProducts');
-    }
-  }
+    },
+  },
 };
 </script>

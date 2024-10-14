@@ -11,11 +11,9 @@
             <router-link to="/products" class="nav-link">Products</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/cart" class="nav-link">
-              Cart
-              <span class="badge" v-if="totalItemCount > 0">{{ totalItemCount }}</span>
-            </router-link>
+            <router-link to="/cart" class="nav-link">Cart</router-link>
           </li>
+          <!-- Show Logout only if user is logged in -->
           <li class="nav-item" v-if="isLoggedIn">
             <a @click.prevent="logout" class="nav-link">Logout</a>
           </li>
@@ -33,31 +31,23 @@ export default {
   name: 'App',
   computed: {
     isLoggedIn() {
-      return !!localStorage.getItem('token'); // Check if token exists
+      // Check if the token exists in localStorage
+      return !!localStorage.getItem('token');
     },
-    ...mapGetters('cart', ['cartItems']), // Map cart items from Vuex store
+    ...mapGetters('cart', ['cartItems']),
     totalItemCount() {
       return this.cartItems.reduce((acc, item) => acc + item.quantity, 0);
     },
   },
   methods: {
     logout() {
-      localStorage.removeItem('token'); // Remove token on logout
-      this.$router.push('/login'); // Redirect to login page
-    }
+      // Remove token from localStorage
+      localStorage.removeItem('token');
+      // Redirect to the login page
+      this.$router.push('/login');
+    },
   },
 };
 </script>
 
 <style src="./assets/styles.css"></style>
-
-<style scoped>
-.badge {
-  background-color: red;
-  color: white;
-  border-radius: 50%;
-  padding: 2px 5px;
-  margin-left: 5px;
-  font-size: 14px;
-}
-</style>

@@ -1,12 +1,14 @@
 <template>
   <div class="product-list">
-    <h1>Product List</h1>
-    <div v-if="loading">Loading products...</div>
-    <div v-if="error">{{ error }}</div>
-    <div class="row" v-if="products.length > 0">
-      <div class="col-md-4 mb-4" v-for="product in products" :key="product.id">
-        <ProductItem :product="product" @add-to-cart="addToCart" />
-      </div>
+    <h2>Products</h2>
+    <div class="row">
+      <ProductItem
+        v-for="product in products"
+        :key="product.id"
+        :product="product"
+        @add-to-cart="addToCart"
+        class="col" 
+      />
     </div>
   </div>
 </template>
@@ -16,24 +18,47 @@ import { mapGetters } from 'vuex';
 import ProductItem from './ProductItem.vue';
 
 export default {
-  name: "ProductsComponent",
   components: { ProductItem },
   computed: {
-    ...mapGetters('products', ['allProducts', 'isLoading', 'errorMessage']),
-    products() { return this.allProducts; },
-    loading() { return this.isLoading; },
-    error() { return this.errorMessage; },
-  },
-  created() {
-    this.fetchProducts();
+    ...mapGetters('products', ['allProducts']),
+    products() {
+
+      return this.allProducts;
+    },
   },
   methods: {
-    fetchProducts() {
-      this.$store.dispatch('products/fetchProducts');
-    },
     addToCart(product) {
       this.$store.dispatch('cart/addToCart', product);
     },
   },
+  mounted() {
+    this.$store.dispatch('products/fetchProducts');
+  },
 };
 </script>
+
+<style scoped>
+.product-list {
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.product-list h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the product items */
+}
+
+.col {
+  flex: 1 1 calc(25% - 20px); /* Responsive sizing */
+  margin: 10px; /* Space between items */
+  max-width: 250px; /* Optional: Limit width of each item */
+}
+
+
+</style>

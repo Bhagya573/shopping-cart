@@ -17,6 +17,12 @@ const actions = {
   removeFromCart({ commit }, productId) {
     commit('REMOVE_FROM_CART', productId);
   },
+  incrementQuantity({ commit }, productId) {
+    commit('INCREMENT_QUANTITY', productId);
+  },
+  decrementQuantity({ commit }, productId) {
+    commit('DECREMENT_QUANTITY', productId);
+  },
 };
 
 const mutations = {
@@ -32,6 +38,24 @@ const mutations = {
     const index = state.items.findIndex(item => item.id === productId);
     if (index !== -1) {
       state.items.splice(index, 1);
+    }
+  },
+  INCREMENT_QUANTITY(state, productId) {
+    const itemInCart = state.items.find(item => item.id === productId);
+    if (itemInCart) {
+      itemInCart.quantity++;
+    }
+  },
+  DECREMENT_QUANTITY(state, productId) {
+    const itemInCart = state.items.find(item => item.id === productId);
+    if (itemInCart && itemInCart.quantity > 1) {
+      itemInCart.quantity--;
+    } else if (itemInCart && itemInCart.quantity === 1) {
+      // If quantity is 1, remove item from cart
+      const index = state.items.findIndex(item => item.id === productId);
+      if (index !== -1) {
+        state.items.splice(index, 1);
+      }
     }
   },
 };

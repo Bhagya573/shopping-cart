@@ -22,7 +22,6 @@ export default {
   computed: {
     ...mapGetters('products', ['allProducts']),
     products() {
-
       return this.allProducts;
     },
   },
@@ -38,27 +37,4 @@ export default {
 </script>
 
 <style scoped>
-.product-list {
-  padding: 20px;
-  background-color: #f8f9fa;
-}
-
-.product-list h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* Center the product items */
-}
-
-.col {
-  flex: 1 1 calc(25% - 20px); /* Responsive sizing */
-  margin: 10px; /* Space between items */
-  max-width: 250px; /* Optional: Limit width of each item */
-}
-
-
 </style>

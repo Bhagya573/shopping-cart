@@ -12,21 +12,19 @@
         <img :src="item.image" alt="Item Image" class="item-image" />
         <div class="item-details">
           <h5>{{ item.title }}</h5>
-          <p>{{ item.quantity }} x ${{ item?.price?.toFixed(2) }}</p>
+          <p>{{ item.quantity }} x ${{ formatPrice(item.price) }}</p>
         </div>
         <div class="item-actions">
-          <button @click="decrement(item)" class="quantity-btn">-</button>
+          <button @click="adjustQuantity(item.id, false)" class="quantity-btn">-</button>
           <span class="quantity">{{ item.quantity }}</span>
-          <button @click="increment(item)" class="quantity-btn">+</button>
+          <button @click="adjustQuantity(item.id, true)" class="quantity-btn">+</button>
           <button @click="removeFromCart(item.id)" class="remove-btn">Remove</button>
         </div>
       </li>
     </ul>
-    <h3 class="total">Total: ${{ cartTotal.toFixed(2) }}</h3>
+    <h3 class="total">Total: ${{ formatPrice(cartTotal) }}</h3>
   </div>
 </template>
-
-
 
 <script>
 import { mapGetters } from 'vuex';
@@ -39,15 +37,26 @@ export default {
     },
   },
   methods: {
+    formatPrice(price) {
+      return Number(price).toFixed(2);
+    },
     removeFromCart(productId) {
       this.$store.dispatch('cart/removeFromCart', productId);
     },
-    increment(item) {
-      this.$store.dispatch('cart/incrementQuantity', item.id);
+    adjustQuantity(productId, increment) {
+      this.$store.dispatch('cart/adjustQuantity', { productId, increment });
     },
-    decrement(item) {
-      this.$store.dispatch('cart/decrementQuantity', item.id);
+  },
+  watch: {
+    cartItems: {
+      immediate: true,
+      handler() {
+        console.log("Cart items updated:", this.cartItems);
+      },
     },
+  },
+  mounted() {
+    this.$store.dispatch('cart/fetchCartItems');
   },
 };
 </script>

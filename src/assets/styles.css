@@ -4,7 +4,7 @@ body {
   background-color: #f8f9fa;
   margin: 0;
   padding: 0;
-  color: #343a40; /* Default text color */
+  color: #343a40;
 }
 
 h1, h2, h3 {
@@ -173,12 +173,12 @@ h1, h2, h3 {
 
 /* Cart Styles */
 .cart {
-  max-width: 600px; /* Limit width for better appearance */
-  margin: 50px auto; /* Center the cart */
+  max-width: 600px; 
+  margin: 50px auto; 
   padding: 20px;
   background-color: #f9f9f9;
-  border-radius: 8px; /* Slightly increased rounding for modern look */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Softer shadow */
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
 }
 
 .cart-header {
@@ -292,31 +292,18 @@ h1, h2, h3 {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* login
-.login-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.login-div{
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 30rem;
-} */
-
 .login-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   background-color: #f7f9fc;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
-
+.login-div{
+  width:600px;
+}
 .login-title {
   font-size: 2rem;
   margin-bottom: 20px;
@@ -348,7 +335,3 @@ h1, h2, h3 {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-
-/* .login-button:hover {
-  background-color: #0056b3;
-} */

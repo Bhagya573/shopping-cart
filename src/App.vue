@@ -13,9 +13,17 @@
           <li class="nav-item">
             <router-link to="/cart" class="nav-link">Cart</router-link>
           </li>
-          <!-- Show Logout only if user is logged in -->
+          <!-- Show Logout button only if user is logged in -->
           <li class="nav-item" v-if="isLoggedIn">
-            <a @click.prevent="logout" class="nav-link">Logout</a>
+            <a 
+              @click.prevent="logout" 
+              class="nav-link" 
+              :class="{ disabled: !isLoggedIn }" 
+              tabindex="0"
+              aria-disabled="!isLoggedIn"
+            >
+              Logout
+            </a>
           </li>
         </ul>
       </div>
@@ -23,27 +31,18 @@
     <router-view />
   </div>
 </template>
-
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
   name: 'App',
   computed: {
     isLoggedIn() {
-      // Check if the token exists in localStorage
-      return !!localStorage.getItem('token');
-    },
-    ...mapGetters('cart', ['cartItems']),
-    totalItemCount() {
-      return this.cartItems.reduce((acc, item) => acc + item.quantity, 0);
+      return !!localStorage.getItem('userId');
     },
   },
   methods: {
     logout() {
-      // Remove token from localStorage
-      localStorage.removeItem('token');
-      // Redirect to the login page
+      localStorage.removeItem('userId');
+      localStorage.removeItem('username');
       this.$router.push('/login');
     },
   },
@@ -51,3 +50,6 @@ export default {
 </script>
 
 <style src="./assets/styles.css"></style>
+
+<style scoped>
+</style>

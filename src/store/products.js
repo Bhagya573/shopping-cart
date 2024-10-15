@@ -14,10 +14,6 @@ const getters = {
 
 const actions = {
   async fetchProducts({ commit }) {
-    if (state.items.length > 0) {
-      console.log('Using cached products');
-      return;
-  }
     commit('SET_LOADING', true);
     commit('SET_ERROR', null);
     try {
@@ -30,18 +26,20 @@ const actions = {
       commit('SET_LOADING', false);
     }
   },
-  
-  async addProduct({ commit }, product) {
-      // Check for duplicates before adding
-      const exists = state.items.some(existingProduct => existingProduct.id === product.id);
-      if (exists) {
-        alert('Product with this ID already exists. Please choose a different ID.');
-        return;
-      }
-    
-      commit('ADD_PRODUCT', product);
-    localStorage.setItem('products', JSON.stringify(state.items)); // Update local storage
-  },
+  async addProduct({ commit, state }, product) {
+    const exists = state.items.some(existingProduct => existingProduct.title === product.title);
+    if (exists) {
+      alert('Product with this name already exists. Please choose a different name.');
+      return;
+    }
+
+    try {
+      const response = await addProduct(product);
+      commit('ADD_PRODUCT', response.data);
+    } catch (error) {
+      console.error('Error adding product:', error);
+    }
+  }
 };
 
 const mutations = {

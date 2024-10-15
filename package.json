@@ -7,11 +7,9 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "test": "jest"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.6.0",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
     "vee-validate": "^4.13.2",

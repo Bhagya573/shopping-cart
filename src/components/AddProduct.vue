@@ -19,7 +19,6 @@
     </form>
     <div v-if="submitted" class="product-details">
       <h2>Product Details</h2>
-      <p><strong>ID:</strong> {{ product.id }}</p>
       <p><strong>Name:</strong> {{ product.title }}</p>
       <p><strong>Price:</strong> ${{ product.price }}</p>
       <img :src="product.image" alt="Product Image" class="product-image" />
@@ -37,10 +36,9 @@ export default {
   components: { Field, ErrorMessage },
   data() {
     return {
-      product: { id: null, title: '', price: null, image: '' },
+      product: { title: '', price: null, image: '' },
       submitted: false,
       fields: [
-        { name: 'id', label: 'Product ID:', type: 'number', rules: 'required|numeric' },
         { name: 'title', label: 'Product Name:', type: 'text', rules: 'required' },
         { name: 'price', label: 'Price:', type: 'text', rules: 'required|numeric|min_value:0' },
         { name: 'image', label: 'Image URL:', type: 'text', rules: 'required|url' },
@@ -50,7 +48,6 @@ export default {
   setup() {
     const { handleSubmit, errors } = useForm({
       validationSchema: yup.object({
-        id: yup.number().required('Product ID required').typeError('ID must be a number'),
         title: yup.string().required('Product name required'),
         price: yup.string().required('Product price required').matches(/^(0|[1-9]\d*)(\.\d+)?$/, 'Price must be a valid number'),
         image: yup.string().url('Image URL must be a valid URL').required('Image URL required'),
@@ -72,9 +69,13 @@ export default {
     submitForm() {
       this.handleSubmit((values) => {
         this.addProduct(values);
+        this.product = { title: values.title, price: values.price, image: values.image }; // Set product details
         this.submitted = true;
       })();
     },
   },
 };
 </script>
+
+<style>
+</style>

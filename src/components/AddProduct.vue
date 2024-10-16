@@ -53,7 +53,6 @@ export default {
         image: yup.string().url('Image URL must be a valid URL').required('Image URL required'),
       }),
     });
-
     return { handleSubmit, errors };
   },
   computed: {

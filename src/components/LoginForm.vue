@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <h1 class="login-title">Login</h1>
-    <form @submit.prevent="login">
+    <form @submit.prevent="handleLogin">
       <div class="login-div">
         <div class="form-group">
           <input
@@ -66,7 +66,7 @@ export default {
       return username.value && password.value && !usernameError.value && !passwordError.value;
     });
 
-    const login = async () => {
+    const handleLogin = async () => {
       if (!isFormValid.value) return;
 
       try {
@@ -81,6 +81,7 @@ export default {
           genericError.value = 'Login failed: User ID not received.';
         }
       } catch (error) {
+        console.log("loginFailed",error);
         genericError.value = error.response?.data?.error_message || 'Login failed!';
       }
     };
@@ -88,7 +89,7 @@ export default {
     return { 
       username, 
       password, 
-      login, 
+      handleLogin, 
       isFormValid, 
       genericError, 
       usernameError, 

@@ -1,7 +1,7 @@
-import { getProducts } from '../services/productService.js';
+import { getProducts,addProduct } from '../services/productService.js';
 
 const state = {
-  items: JSON.parse(localStorage.getItem('products')) || [],
+  items: [],
   loading: false,
   error: null,
 };
@@ -36,6 +36,7 @@ const actions = {
     try {
       const response = await addProduct(product);
       commit('ADD_PRODUCT', response.data);
+      alert('Product added successfully!');
     } catch (error) {
       console.error('Error adding product:', error);
     }

@@ -89,11 +89,8 @@ h1, h2, h3 {
   padding: 15px;
 }
 
-.col {
-  max-width: none !important; /* Remove max-width */
-}
-
 /* Product List Styles */
+
 .product-item{
     background: white;
     border-radius: 5px;
@@ -112,6 +109,15 @@ h1, h2, h3 {
 }
 .product-item:hover {
   transform: translateY(-5px); /* Subtle hover effect */
+}
+.product-list{
+  padding:1rem;
+}
+.product-width{
+  width:360px !important;
+}
+.row{
+  gap:1rem;
 }
 /* Product Form Styles */
 .add-product-form {
@@ -334,4 +340,64 @@ h1, h2, h3 {
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s;
+}
+/* each Product listing */
+.product-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd; 
+  border-radius: 10px; 
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  .product-img {
+    width:25%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .price {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 10px 0;
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 10px; 
+  }
+  
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .add-to-cart-btn {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .add-to-cart-btn:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+  }
+  
+  .back-btn {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .back-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
 }

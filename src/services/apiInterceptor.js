@@ -18,7 +18,6 @@ apiClient.interceptors.response.use(
        // Handle unauthorized access
        localStorage.removeItem('userId');
        localStorage.removeItem('username');
-      window.location.href = '/login';
     }
     return Promise.reject(error);
   }

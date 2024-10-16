@@ -7,7 +7,7 @@
         :key="product.id"
         :product="product"
         @add-to-cart="addToCart"
-        class="col" 
+        class="product-width" 
       />
     </div>
   </div>

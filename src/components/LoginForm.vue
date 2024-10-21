@@ -70,12 +70,14 @@ export default {
       if (!isFormValid.value) return;
 
       try {
-        const { data } = await apiClient.post('login', { username: username.value, password: password.value });
-        
-        if (data?.userId) {
-          localStorage.setItem('userId', data.userId);
+        const module ='users';
+        const action = 'create'
+        const { data } = await apiClient.post(`http://localhost:3001/${module}/${action}`,{ username: username.value, password: password.value });
+         console.log(data,"login response")
+        if (data?.id) {
+          localStorage.setItem('userId', data.id);
           localStorage.setItem('username', data.username);
-          store.dispatch('cart/setUserId', data.userId);
+          store.dispatch('cart/setUserId', data.id);
           router.push('/home');
         } else {
           genericError.value = 'Login failed: User ID not received.';
